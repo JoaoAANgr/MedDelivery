@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from "react-router-dom";
 import Dropdown from './Dropdown'; // Importe o componente Dropdown
 
 const Header = ({ isLoggedIn, onLogout, onLogin, loggedInUser }) => {
@@ -83,8 +84,9 @@ const Header = ({ isLoggedIn, onLogout, onLogin, loggedInUser }) => {
               className="relative block py-2 px-4 text-sm leading-5 font-medium text-gray-50 hover:bg-blue-800 focus:outline-none focus:bg-blue-800"
               onClick={(e) => e.preventDefault()}
             >
-              Produtos
+             <NavLink to="/produtos"> Produtos</NavLink>
             </a>
+            
             <Dropdown
               isOpen={isDropdownOpen}
               onMouseEnter={handleMouseEnter} // Manter o dropdown visível ao passar o mouse sobre ele

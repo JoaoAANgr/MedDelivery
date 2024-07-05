@@ -6,6 +6,8 @@ import Header from './components/Header';
 import LoginModal from './components/LoginModal';
 import CreateAccountModal from './components/CreateAccountModal';
 import { FaWhatsapp } from 'react-icons/fa';
+import Produtos from './components/Produtos';
+import { Route, Routes } from "react-router-dom";
 
 
 // Componente de limite de erro simples
@@ -33,6 +35,14 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [isCreateAccountModalOpen, setIsCreateAccountModalOpen] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null); // Estado para armazenar o usuário logado
+  const [produtos, setProdutos] = useState([]); // Estado para armazenar os produtos
+
+  React.useEffect(() => {
+    fetch('../data/produtos.json')
+    .then((res) =>res.json())
+    .then((data) => setProdutos(data.produtos))
+  }
+  , [])
 
   useEffect(() => {
     // Verificar se há dados de usuário no localStorage ao carregar a página
@@ -93,7 +103,9 @@ function App() {
     <ErrorBoundary>
       <>
         <Header isLoggedIn={!!loggedInUser} onLogout={handleLogout} onLogin={openLoginModal} loggedInUser={loggedInUser} />
-
+        <Routes>
+        <Route path="/produtos" element={<Produtos produtos={produtos} />} />
+        </Routes>
         <main>
           <div className="flex justify-center gap-x-20 p-12">
             <img className="w-[800px] rounded-lg" src="/mapa1.png" alt="mapa" />
@@ -157,7 +169,6 @@ function App() {
               </div>
             </section>
           </section>
-
         </main>
  {/* Botão de chat do WhatsApp */}
  <a
